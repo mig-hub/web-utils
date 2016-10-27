@@ -522,5 +522,18 @@ describe WebUtils do
     end
   end
 
+  describe '#h' do
+    it 'Is sugar for Rack::Utils#escape_html' do
+      assert_equal '&lt;tag&gt;Boom&lt;&#x2F;tag&gt;', utils.h('<tag>Boom</tag>')
+    end
+  end
+
+  describe '#u' do
+    it 'Is sugar for Rack::Utils#escape' do
+      assert_equal '%2Ffilthy%2Furl%3Fmother%3Dfucker', utils.u('/filthy/url?mother=fucker')
+    end
+  end
+
+
 end
 

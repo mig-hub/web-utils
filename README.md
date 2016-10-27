@@ -238,5 +238,15 @@ You basically pass the `Request` object to the method and it
 looks at the referrer and returns true if it was not on the same
 domain. Essentially tells you if the visitor just arrived.
 
+`h(text)`
+---------
+
+Just the usual shortcut for `Rack::Utils.escape_html`.
+
+`u(text)`
+---------
+
+Just the usual shortcut for `Rack::Utils.escape` for escaping 
+what you want to put in a URL.
 
 

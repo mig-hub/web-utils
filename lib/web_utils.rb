@@ -259,5 +259,15 @@ module WebUtils
   end
   module_function :initial_request?
 
+  def h text
+    escape_html text
+  end
+  module_function :h
+
+  def u text
+    escape text
+  end
+  module_function :u
+
 end
 
