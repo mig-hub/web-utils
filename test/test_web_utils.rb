@@ -329,6 +329,8 @@ describe WebUtils do
       it 'Can change what is typecasted' do
         assert_equal '10', utils.automatic_typecast('10', [:bool,:nil])
         assert_equal true, utils.automatic_typecast('true', [:bool,:nil])
+        assert_equal '10', utils.automatic_typecast('10', [])
+        assert_equal '10', utils.automatic_typecast('10', [:fake])
       end
     end
     describe 'when not a string' do

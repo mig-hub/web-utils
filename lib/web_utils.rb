@@ -135,15 +135,16 @@ module WebUtils
   end
   module_function :each_stub
 
-  def automatic_typecast str, casted=[:bool,:nil,:int,:float] 
+  TYPECASTABLE = [:bool, :boolean, :nil, :int, :integer, :float]
+  def automatic_typecast str, casted=TYPECASTABLE 
     return str unless str.is_a?(String)
-    if casted.include?(:bool) and str=='true'
+    if (casted.include?(:bool) or casted.include?(:boolean)) and str=='true'
       true
-    elsif casted.include?(:bool) and str=='false'
+    elsif (casted.include?(:bool) or casted.include?(:boolean)) and str=='false'
       false
     elsif casted.include?(:nil) and str==''
       nil
-    elsif casted.include?(:int) and str=~/^-?\d+$/
+    elsif (casted.include?(:int) or casted.include?(:integer)) and str=~/^-?\d+$/
       str.to_i
     elsif casted.include?(:float) and str=~/^-?\d*\.\d+$/
       str.to_f
