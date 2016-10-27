@@ -6,7 +6,7 @@ Gem::Specification.new do |s|
   s.licenses = ['MIT']
 
   s.name = 'web-utils'
-  s.version = '0.0.2'
+  s.version = '0.0.3'
   s.summary = 'Web Utils'
   s.description = 'Useful web-related helper methods for models, views or controllers.'
 
