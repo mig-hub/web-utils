@@ -106,12 +106,17 @@ module WebUtils
   end
   module_function :ensure_key
 
-  ACCENTS_FROM = 
+  ACCENTS = 
     "ÀÁÂÃÄÅàáâãäåĀāĂăĄąÇçĆćĈĉĊċČčÐðĎďĐđÈÉÊËèéêëĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħÌÍÎÏìíîïĨĩĪīĬĭĮįİıĴĵĶķĸĹĺĻļĽľĿŀŁłÑñŃńŅņŇňŉŊŋÒÓÔÕÖØòóôõöøŌōŎŏŐőŔŕŖŗŘřŚśŜŝŞ"
-  ACCENTS_TO = 
+  WITHOUT_ACCENTS = 
     "AAAAAAaaaaaaAaAaAaCcCcCcCcCcDdDdDdEEEEeeeeEeEeEeEeEeGgGgGgGgHhHhIIIIiiiiIiIiIiIiIiJjKkkLlLlLlLlLlNnNnNnNnnNnOOOOOOooooooOoOoOoRrRrRrSsSsSsSssT"
   def slugify s, force_lower=true
-    s = s.to_s.tr(ACCENTS_FROM,ACCENTS_TO).tr(' .,;:?!/\'"()[]{}<>','-').gsub(/&/, 'and').gsub(/-+/,'-').gsub(/(^-|-$)/,'')
+    s = s.to_s
+      .tr(ACCENTS, WITHOUT_ACCENTS)
+      .tr(' .,;:?!/\'"()[]{}<>','-')
+      .gsub(/&/, 'and')
+      .gsub(/-+/,'-')
+      .gsub(/(^-|-$)/,'')
     s = s.downcase if force_lower
     escape(s)
   end
@@ -138,13 +143,23 @@ module WebUtils
   TYPECASTABLE = [:bool, :boolean, :nil, :int, :integer, :float]
   def automatic_typecast str, casted=TYPECASTABLE 
     return str unless str.is_a?(String)
-    if (casted.include?(:bool) or casted.include?(:boolean)) and str=='true'
+    casted = casted.map do |sym|
+      case sym
+      when :int
+        :integer
+      when :bool
+        :boolean
+      else
+        sym
+      end
+    end
+    if casted.include?(:boolean) and str=='true'
       true
-    elsif (casted.include?(:bool) or casted.include?(:boolean)) and str=='false'
+    elsif casted.include?(:boolean) and str=='false'
       false
     elsif casted.include?(:nil) and str==''
       nil
-    elsif (casted.include?(:int) or casted.include?(:integer)) and str=~/^-?\d+$/
+    elsif casted.include?(:integer) and str=~/^-?\d+$/
       str.to_i
     elsif casted.include?(:float) and str=~/^-?\d*\.\d+$/
       str.to_f
@@ -182,38 +197,53 @@ module WebUtils
   end
   module_function :external_link?
 
+  EMAIL_REGEX = /([^\s]+@[^\s]*[a-zA-Z])/
+  LINK_REGEX = /\b((https?:\/\/|ftps?:\/\/|www\.)([A-Za-z0-9\-_=%&@\?\.\/]+))\b/
   def automatic_html s, br='<br>'
     replaced = s.to_s.
-    gsub(/\b((https?:\/\/|ftps?:\/\/|www\.)([A-Za-z0-9\-_=%&@\?\.\/]+))\b/) do |str|
+    gsub(LINK_REGEX) do |str|
       url = complete_link $1
       "<a href='#{url}' target='_blank'>#{$1}</a>"
     end.
-    gsub(/([^\s]+@[^\s]*[a-zA-Z])/) do |str|
+    gsub(EMAIL_REGEX) do |str|
       "<a href='mailto:#{$1.downcase}'>#{$1}</a>"
     end
     nl2br(replaced,br).gsub("@", "&#64;")
   end
   module_function :automatic_html
 
+  TAG_REGEX = /<[^>]*>/
   def truncate s,c=320,ellipsis='...'
-    s.to_s.gsub(/<[^>]*>/, '').gsub(/\n/, ' ').sub(/^(.{#{c}}\w*).*$/m, '\1'+ellipsis)
+    s.to_s
+      .gsub(TAG_REGEX, '')
+      .gsub(/\n/, ' ')
+      .sub(/^(.{#{c}}\w*).*$/m, '\1'+ellipsis)
   end
   module_function :truncate
 
   def display_price int
-    raise(TypeError, 'The price needs to be the price in cents/pence as an integer') unless int.is_a?(Integer)
-    ("%.2f" % (int/100.0)).sub(/\.00/, '').reverse.gsub(/(\d{3})(?=\d)/, '\\1,').reverse
+    unless int.is_a?(Integer)
+      raise(TypeError, 'The price needs to be the price in cents/pence as an integer') 
+    end
+    ("%.2f" % (int/100.0))
+      .sub(/\.00/, '')
+      .reverse
+      .gsub(/(\d{3})(?=\d)/, '\\1,')
+      .reverse
   end
   module_function :display_price
 
   def parse_price string
-    raise(TypeError, 'The price needs to be parsed from a String') unless string.is_a?(String)
+    unless string.is_a?(String)
+      raise(TypeError, 'The price needs to be parsed from a String') 
+    end
     ("%.2f" % string.gsub(/[^\d\.\-]/, '')).gsub(/\./,'').to_i
   end
   module_function :parse_price
 
   def branded_filename path, brand='WebUtils'
-    "#{File.dirname(path)}/#{brand}-#{File.basename(path)}".sub(/^\.\//,'')
+    "#{File.dirname(path)}/#{brand}-#{File.basename(path)}"
+      .sub(/^\.\//,'')
   end
   module_function :branded_filename
 
