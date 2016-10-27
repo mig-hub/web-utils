@@ -522,6 +522,29 @@ describe WebUtils do
     end
   end
 
+  describe '#beeing_crawled?' do
+    let(:req) { 
+      Rack::Request.new(
+        Rack::MockRequest.env_for(
+          '/path', 
+          {'HTTP_USER_AGENT'=>user_agent}
+        )
+      ) 
+    }
+    describe 'When user agent matches' do
+      let(:user_agent) {'Mega Bot from hell Version 6.6.6'}
+      it 'Returns true' do
+        assert utils.beeing_crawled?(req)
+      end
+    end
+    describe 'When user does not match' do
+      let(:user_agent) {'Firefox'}
+      it 'Returns false' do
+        refute utils.beeing_crawled?(req)
+      end
+    end
+  end
+
   describe '#h' do
     it 'Is sugar for Rack::Utils#escape_html' do
       assert_equal '&lt;tag&gt;Boom&lt;&#x2F;tag&gt;', utils.h('<tag>Boom</tag>')

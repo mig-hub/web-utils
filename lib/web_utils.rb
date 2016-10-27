@@ -259,6 +259,12 @@ module WebUtils
   end
   module_function :initial_request?
 
+  BOT_REGEX = /bot|crawl|slurp|spider/i
+  def beeing_crawled? request
+    request.user_agent =~ BOT_REGEX
+  end
+  module_function :beeing_crawled?
+
   def h text
     escape_html text
   end

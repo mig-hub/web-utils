@@ -238,6 +238,14 @@ You basically pass the `Request` object to the method and it
 looks at the referrer and returns true if it was not on the same
 domain. Essentially tells you if the visitor just arrived.
 
+`beeing_crawled?(request)`
+--------------------------
+
+While this method is useful is only checks the presence of
+these words `/bot|crawl|slurp|spider/i` to determine if the user
+agent is a crawler or not. So it is pretty weak. If you have a 
+better way, please make a pull request.
+
 `h(text)`
 ---------
 
