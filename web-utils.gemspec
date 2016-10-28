@@ -1,3 +1,9 @@
+# encoding: utf-8
+
+lib = File.expand_path('../lib', __FILE__)
+$:.unshift lib
+require 'web_utils'
+
 Gem::Specification.new do |s|
 
   s.authors = ['Mickael Riga']
@@ -6,7 +12,7 @@ Gem::Specification.new do |s|
   s.licenses = ['MIT']
 
   s.name = 'web-utils'
-  s.version = '0.0.3'
+  s.version = WebUtils::VERSION
   s.summary = 'Web Utils'
   s.description = 'Useful web-related helper methods for models, views or controllers.'
 

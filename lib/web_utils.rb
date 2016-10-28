@@ -5,6 +5,8 @@ require 'uri'
 
 module WebUtils
 
+  VERSION = '0.0.3'
+
   # Most methods are supposed to be as simple as possible
   # and just cover most cases.
   # I would rather override specific cases rather than making
