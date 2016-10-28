@@ -20,7 +20,11 @@ Gem::Specification.new do |s|
   s.files = `git ls-files`.split("\n").sort
   s.test_files = s.files.grep(/^test\//)
   s.require_paths = ['lib']
-  s.add_dependency('rack', [">= 1.0"])
+
+  s.add_dependency 'rack', '>= 1.0'
+
+  s.add_development_dependency 'bundler', '~> 1.13'
+  s.add_development_dependency 'minitest', '~> 5.8'
 
 end
 
