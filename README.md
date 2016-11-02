@@ -204,6 +204,17 @@ It automatically removes tags and line breaks. The length is
 an ellipsis at the end which can be replaced by whatever you put 
 as a 3rd argument. e.g. `'...and more'`.
 
+`regex_for_query(query, exhaustive=true)`
+-----------------------------------------
+
+It takes a query string (potentially from a search field) and
+builds a regex for matching a string which contains all the words
+of the query, whatever order they appear in.
+
+If you pass `false` as the second argument, the regex will match
+if the text contains at least one word of the query instead of all.
+
+
 `display_price(int)` 
 --------------------
 

@@ -434,6 +434,40 @@ describe WebUtils do
     end
   end
 
+  describe '#regex_for_query' do
+    it 'Builds a Regex for matching all words in any order' do
+      [
+        ['hello', 'hello'],
+        ['hello', 'say hello to me'],
+        ['hello world', 'hello world'],
+        ['hello world', 'the world says hello'],
+        ['hello/world', 'the world says hello'],
+      ].each do |i|
+        assert_match utils.regex_for_query(i[0]), i[1]
+      end
+      [
+        ['hello', 'say aloha to me'],
+        ['hello world', 'say hello to me'],
+        ['hello', ''],
+      ].each do |i|
+        refute_match utils.regex_for_query(i[0]), i[1]
+      end
+    end
+    it 'Builds a Regex for matching at least one word if exhautive is false' do
+      [
+        ['hello world', 'say hello to me'],
+        ['hello aloha say', 'say hello to me'],
+      ].each do |i|
+        assert_match utils.regex_for_query(i[0], false), i[1]
+      end
+      [
+        ['hello world', 'say aloha to me'],
+      ].each do |i|
+        refute_match utils.regex_for_query(i[0], false), i[1]
+      end
+    end
+  end
+
   describe '#display_price' do
     it 'Turns a price number in cents/pence into a displayable one' do
       assert_equal '45.95', utils.display_price(4595)

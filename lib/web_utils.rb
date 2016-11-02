@@ -223,6 +223,14 @@ module WebUtils
   end
   module_function :truncate
 
+  def regex_for_query query, exhaustive=true
+    atoms = query.split(/[^a-zA-Z0-9\&]+/)
+    atom_patterns = atoms.map{|a| "(?=.*\\b#{a})" }
+    sep = exhaustive ? '' : '|'
+    regex = /#{atom_patterns.join(sep)}/i
+  end
+  module_function :regex_for_query
+
   def display_price int
     unless int.is_a?(Integer)
       raise(TypeError, 'The price needs to be the price in cents/pence as an integer') 
