@@ -6,8 +6,8 @@ methods that are quite common to have in a web project.
 It is organized like `Rack::Utils` and actually extends it.
 
 Some of the methods are similar to methods you would have 
-in `Active::Support` but without monkey patching. Although it
-is only a coincidence. The purpose is not to build an alternative.
+in `Active::Support` but without monkey patching. Nevertheless it
+is only a coincidence. The purpose is not to create an alternative.
 
 Here is how you would use it with `Sinatra`:
 
@@ -27,7 +27,7 @@ class Main < Sinatra::Base
 end
 ```
 
-Some methods are also useful on the model side.
+Some methods are also useful on the model side of your app.
 
 Here is a list of the available methods and what they do:
 
@@ -39,31 +39,34 @@ Just tells you if the string is blank or not.
 `pluralize(string)`
 -------------------
 
-Pluralize simple words. Just override when necessary.
+Find a plural version for words. It is meant to deal with most common cases 
+and therefore is not exhaustive.
 
 `singularize(string)`
 -------------------
 
-Singularize simple words. Just override when necessary.
+Basically the opposite of `pluralize`.
 
 `dasherize_class_name(string)`
 ------------------------------
 
-Dasherize class names. Module separator is a double dash. 
-So `BlogArticle::Comment` becomes `blog-article--comment`. 
-Also for simplicity, it does not gather accronyms. e.g. `net--f-t-p`.
+Turns class names into a dasherized version (e.g. `"web-utils"`). 
+Module separator is a double dash. 
+So `"BlogArticle::Comment"` becomes `"blog-article--comment"`. 
+Also for simplicity, it does not try to be clever with accronyms. 
+So `"Net::FTP"` returns `"net--f-t-p"`.
 This is useful for urls or creating CSS class names or IDs.
 
 `undasherize_class_name(string)`
 --------------------------------
 
-Basically the opposite.
+Basically the opposite of `dasherize_class_name`.
 
 `resolve_class_name(string, context=Kernel)`
 --------------------------------------------
 
 It takes the class name as a string and returns the class.
-You can pass a class name with modules as well (e.g. "Net::FTP").
+You can pass a class name with modules as well (e.g. `"Net::FTP"`).
 This is actually the main reason why there is a `context`
 argument, because it uses recursion to do this.
 But `context` is still useful otherwise.
@@ -81,7 +84,7 @@ Useful for resolving a class from a URL param.
 It is mainly used for guessing the class name of a 
 children class with a plural name. 
 So `guess_related_class_name(BlogArticle, :comments)` 
-will return `'BlogArticle::Comment'`.
+will return `"BlogArticle::Comment"`.
 
 `get_value(value, target=Kernel)`
 ----------------------------------
@@ -120,7 +123,7 @@ default value. And this value is also returned by the method.
 --------------------------------------
 
 Same as `ensure_key!` except that it does not change the original
-hash. It returns a new one.
+hash. It returns a new one (following the bang convention).
 
 `slugify(string, force_lowercase=true)`
 -----------------
@@ -128,14 +131,15 @@ hash. It returns a new one.
 This makes the strings ready to be used as a slug in a URL. 
 It removes the accents, replaces a lot of separators with 
 dashes and escapes it. By default it forces the output to 
-be lowercase, but if you pass `false` as a second argument, 
+be lowercase, but if you pass `false` as the second argument, 
 it will not change the case of letters.
 
 `label_for_field(string_or_symbol)`
 -----------------------------------
 
 Returns a human readable version of a field name.
-It says `field`, but it could be any kind of symbol I guess.
+So `:label_for_field` returns `"Label for field"`.
+It says `field`, but it could be used with any kind of symbol.
 
 `each_stub(nested_object) {|object,key_or_index,value| ... }`
 -------------------------------------------------------------
@@ -154,7 +158,7 @@ simple things like `true`, `false`, integers and floats.
 And an empty string is always `nil`.
 
 The second argument is the list of things you want to typecast.
-By default there is everything, but you only want to typecast
+By default there is everything, but if you only want to typecast
 integers and floats, you can pass `[:int, :float]`.
 
 `generate_random_id(size)` 
@@ -176,17 +180,18 @@ Just in case you want self-closing tags.
 -----------------------
 
 This just makes sure that a link is complete. Very often 
-people tend to enter a URL like `www.google.com` which is a 
-controversial `href` for some browsers, so it changes it to 
-`//www.google.com`. Already seemingly complete links are not
+people tend to enter a URL like `"www.google.com"` which is a 
+controversial `href` for some browsers. This method would change it for
+`"//www.google.com"`. Already seemingly complete links are not
 affected by the method.
 
 `external_link?(string)` 
 ------------------------
 
 This tells you if a link is pointing to the current site or 
-an external one. This is useful when you want to create a link 
-tag and want to decide if target is `'_blank'` or `'_self'`.
+an external one (based on the presence of a domain name or not). 
+This is useful when you want to create a link 
+tag and want to decide if target is `"_blank"` or `"_self"`.
 
 `automatic_html(string, br="<br>")`
 -----------------------------------
@@ -199,10 +204,10 @@ is quite useful, should it be only for turning an email into a link.
 --------------------------------------------
 
 It truncates a string like what you have in blog summaries. 
-It automatically removes tags and line breaks. The length is 
+It automatically removes tags and line breaks. The size is 
 320 by default. When the original string was longer, it puts 
 an ellipsis at the end which can be replaced by whatever you put 
-as a 3rd argument. e.g. `'...and more'`.
+as a 3rd argument. e.g. `"...and more"`.
 
 `regex_for_query(query, exhaustive=true)`
 -----------------------------------------
@@ -219,7 +224,7 @@ if the text contains at least one word of the query instead of all.
 --------------------
 
 It changes a price in cents/pence into a formated string 
-like `49,425.40` when you pass `4942540`.
+like `"49,425.40"` when you pass `4942540`.
 
 `parse_price(string)`
 ---------------------
@@ -232,29 +237,29 @@ order to return a price in cents/pence.
 
 It takes the path to a file and add the brand/prefix and a dash 
 before the file name (really the file name, not the path). 
-By default, the brand/prefix is `WebUtils`.
+By default, the brand/prefix is `"WebUtils"`.
 
 `filename_variation(path, variation, ext)`
 ------------------------------------------
 
-For example you have a file `/path/to/image.jpg` and you want 
-to create its `thumbnail` in `png`, you can create the thumnail 
+For example you have a file `"/path/to/image.jpg"` and you want 
+to create its `thumbnail` in `png`, you can create the thumbnail 
 path with `filename_variation(path, :thumbnail, :png)` and it 
-will return `/path/to/image.thumbnail.png`.
+will return `"/path/to/image.thumbnail.png"`.
 
 `initial_request?(request)`
 ---------------------------
 
 You basically pass the `Request` object to the method and it
 looks at the referrer and returns true if it was not on the same
-domain. Essentially tells you if the visitor just arrived.
+domain. Essentially tells you if the visitor just arrived on your website.
 
 `beeing_crawled?(request)`
 --------------------------
 
-While this method is useful is only checks the presence of
+While this method is useful, it only checks for the presence of
 these words `/bot|crawl|slurp|spider/i` to determine if the user
-agent is a crawler or not. So it is pretty weak. If you have a 
+agent is a crawler or not. So it is pretty basic. If you have a 
 better way, please make a pull request.
 
 `h(text)`
