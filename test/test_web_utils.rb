@@ -556,7 +556,7 @@ describe WebUtils do
     end
   end
 
-  describe '#beeing_crawled?' do
+  describe '#being_crawled?' do
     let(:req) { 
       Rack::Request.new(
         Rack::MockRequest.env_for(
@@ -568,13 +568,13 @@ describe WebUtils do
     describe 'When user agent matches' do
       let(:user_agent) {'Mega Bot from hell Version 6.6.6'}
       it 'Returns true' do
-        assert utils.beeing_crawled?(req)
+        assert utils.being_crawled?(req)
       end
     end
     describe 'When user does not match' do
       let(:user_agent) {'Firefox'}
       it 'Returns false' do
-        refute utils.beeing_crawled?(req)
+        refute utils.being_crawled?(req)
       end
     end
   end

@@ -254,7 +254,7 @@ You basically pass the `Request` object to the method and it
 looks at the referrer and returns true if it was not on the same
 domain. Essentially tells you if the visitor just arrived on your website.
 
-`beeing_crawled?(request)`
+`being_crawled?(request)`
 --------------------------
 
 While this method is useful, it only checks for the presence of

@@ -5,7 +5,7 @@ require 'uri'
 
 module WebUtils
 
-  VERSION = '0.0.3'
+  VERSION = '0.0.4'
 
   # Most methods are supposed to be as simple as possible
   # and just cover most cases.
@@ -270,10 +270,10 @@ module WebUtils
   module_function :initial_request?
 
   BOT_REGEX = /bot|crawl|slurp|spider/i
-  def beeing_crawled? request
+  def being_crawled? request
     request.user_agent =~ BOT_REGEX
   end
-  module_function :beeing_crawled?
+  module_function :being_crawled?
 
   def h text
     escape_html text
