@@ -161,13 +161,6 @@ The second argument is the list of things you want to typecast.
 By default there is everything, but if you only want to typecast
 integers and floats, you can pass `[:int, :float]`.
 
-`generate_random_id(size)` 
---------------------------
-
-Like the name suggests, it generates a random string of 
-only letters and numbers. If you  don't provide a size, 
-it defaults to 16.
-
 `nl2br(string, br="<br>")` 
 --------------------------
 

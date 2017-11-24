@@ -5,7 +5,7 @@ require 'uri'
 
 module WebUtils
 
-  VERSION = '0.0.4'
+  VERSION = '0.0.5'
 
   # Most methods are supposed to be as simple as possible
   # and just cover most cases.
@@ -174,6 +174,7 @@ module WebUtils
   ID_CHARS = ('a'..'z').to_a + ('A'..'Z').to_a + ('0'..'9').to_a
   ID_SIZE = 16
   def generate_random_id size=ID_SIZE
+    warn "WebUtils::generate_random_id is deprecated. Use standard SecureRandom instead."
     id = ''
     size.times{id << ID_CHARS[rand(ID_CHARS.size)]} 
     id
