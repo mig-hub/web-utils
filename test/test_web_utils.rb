@@ -87,6 +87,7 @@ describe WebUtils do
         ['View360', 'view-360'],
         ['View360Degree', 'view-360-degree'],
         ['Degree360::View', 'degree-360--view'],
+        ['Sphere3dView', 'sphere-3d-view'],
         ['RestAPI::Request::Post','rest-a-p-i--request--post'],
       ]
     }
