@@ -5,7 +5,7 @@ require 'uri'
 
 module WebUtils
 
-  VERSION = '0.0.5'
+  VERSION = '0.0.6'
 
   # Most methods are supposed to be as simple as possible
   # and just cover most cases.
@@ -248,7 +248,12 @@ module WebUtils
     unless string.is_a?(String)
       raise(TypeError, 'The price needs to be parsed from a String') 
     end
-    ("%.2f" % string.gsub(/[^\d\.\-]/, '')).gsub(/\./,'').to_i
+    string = string.gsub(/[^\d\.\-,]/, '')
+    if string[/\.\d\d\d$/] or string[/,\d\d?$/]
+      # comma-based price 
+      string = string.tr '.,', ',.'
+    end
+    ("%.2f" % string.gsub(/,/, '')).gsub(/\./,'').to_i
   end
   module_function :parse_price
 

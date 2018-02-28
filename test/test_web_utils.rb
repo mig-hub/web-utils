@@ -499,6 +499,12 @@ describe WebUtils do
     it 'Ignores visual help but works with negative prices' do
       assert_equal -1234567890, utils.parse_price('   £-12,345,678.90   ')
     end
+    it 'Parses comma-based prices - french/german style' do
+      assert_equal 2390, utils.parse_price('23,90')
+      assert_equal 2390, utils.parse_price('23,9')
+      assert_equal 2000000, utils.parse_price('20.000')
+      assert_equal -1234567890, utils.parse_price('   £-12.345.678,90   ')
+    end
     it 'Raises when argument is not string' do
       assert_raises(TypeError) do
         utils.parse_price(42)
