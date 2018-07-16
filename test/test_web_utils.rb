@@ -598,6 +598,11 @@ describe WebUtils do
     end
   end
 
+  describe '#google_maps_link' do
+    it 'Returns the URL with an escaped address' do
+      assert_equal 'https://www.google.com/maps/search/?api=1&query=42+Guide+Street%0AFlat+C%0AE8+4RL+London', utils.google_maps_link("42 Guide Street\nFlat C\nE8 4RL London")
+    end
+  end
 
 end
 

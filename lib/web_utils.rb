@@ -5,7 +5,7 @@ require 'uri'
 
 module WebUtils
 
-  VERSION = '0.0.6'
+  VERSION = '0.1.0'
 
   # Most methods are supposed to be as simple as possible
   # and just cover most cases.
@@ -290,6 +290,11 @@ module WebUtils
     escape text
   end
   module_function :u
+
+  def google_maps_link address
+    "https://www.google.com/maps/search/?api=1&query=#{u address}"
+  end
+  module_function :google_maps_link
 
 end
 

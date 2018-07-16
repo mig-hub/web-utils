@@ -266,4 +266,8 @@ Just the usual shortcut for `Rack::Utils.escape_html`.
 Just the usual shortcut for `Rack::Utils.escape` for escaping 
 what you want to put in a URL.
 
+`google_maps_link(address)`
+---------------------------
+
+Returns a google maps link with a marker at address passed as argument.
 
