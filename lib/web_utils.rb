@@ -115,9 +115,9 @@ module WebUtils
   def slugify s, force_lower=true
     s = s.to_s
       .tr(ACCENTS, WITHOUT_ACCENTS)
-      .tr(' .,;:?!/\'"()[]{}<>','-')
+      .tr('.,;:?!/\'"()[]{}<>','-')
       .gsub(/&/, 'and')
-      .gsub(/-+/,'-')
+      .gsub(/[[:space:]\-]+/,'-')
       .gsub(/(^-|-$)/,'')
     s = s.downcase if force_lower
     escape(s)
