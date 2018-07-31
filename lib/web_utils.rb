@@ -5,7 +5,7 @@ require 'uri'
 
 module WebUtils
 
-  VERSION = '0.1.0'
+  VERSION = '0.1.1'
 
   # Most methods are supposed to be as simple as possible
   # and just cover most cases.
