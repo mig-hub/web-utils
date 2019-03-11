@@ -409,7 +409,7 @@ describe WebUtils do
   describe '#automatic_html' do
     it 'Automates links and line breaks' do
       input = "Hello\nme@site.co.uk\nNot the begining me@site.co.uk\nme@site.co.uk not the end\nwww.site.co.uk\nVisit www.site.co.uk\nwww.site.co.uk rules\nhttp://www.site.co.uk\nVisit http://www.site.co.uk\nhttp://www.site.co.uk rules"
-      output = "Hello<br><a href='mailto:me&#64;site.co.uk'>me&#64;site.co.uk</a><br>Not the begining <a href='mailto:me&#64;site.co.uk'>me&#64;site.co.uk</a><br><a href='mailto:me&#64;site.co.uk'>me&#64;site.co.uk</a> not the end<br><a href='//www.site.co.uk' target='_blank'>www.site.co.uk</a><br>Visit <a href='//www.site.co.uk' target='_blank'>www.site.co.uk</a><br><a href='//www.site.co.uk' target='_blank'>www.site.co.uk</a> rules<br><a href='http://www.site.co.uk' target='_blank'>http://www.site.co.uk</a><br>Visit <a href='http://www.site.co.uk' target='_blank'>http://www.site.co.uk</a><br><a href='http://www.site.co.uk' target='_blank'>http://www.site.co.uk</a> rules"
+      output = "Hello<br><a href='mailto:me@site.co.uk'>me@site.co.uk</a><br>Not the begining <a href='mailto:me@site.co.uk'>me@site.co.uk</a><br><a href='mailto:me@site.co.uk'>me@site.co.uk</a> not the end<br><a href='//www.site.co.uk' target='_blank'>www.site.co.uk</a><br>Visit <a href='//www.site.co.uk' target='_blank'>www.site.co.uk</a><br><a href='//www.site.co.uk' target='_blank'>www.site.co.uk</a> rules<br><a href='http://www.site.co.uk' target='_blank'>http://www.site.co.uk</a><br>Visit <a href='http://www.site.co.uk' target='_blank'>http://www.site.co.uk</a><br><a href='http://www.site.co.uk' target='_blank'>http://www.site.co.uk</a> rules"
       assert_equal output, utils.automatic_html(input)
     end
   end

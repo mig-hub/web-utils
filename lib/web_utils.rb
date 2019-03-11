@@ -211,7 +211,7 @@ module WebUtils
     gsub(EMAIL_REGEX) do |str|
       "<a href='mailto:#{$1.downcase}'>#{$1}</a>"
     end
-    nl2br(replaced,br).gsub("@", "&#64;")
+    nl2br(replaced,br)
   end
   module_function :automatic_html
 
