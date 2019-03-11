@@ -182,7 +182,7 @@ module WebUtils
   module_function :generate_random_id
 
   def nl2br s, br='<br>'
-    s.to_s.gsub(/\n/,br)
+    s.to_s.gsub(/\r?\n/,br)
   end
   module_function :nl2br
 

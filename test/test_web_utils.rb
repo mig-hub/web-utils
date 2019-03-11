@@ -354,11 +354,11 @@ describe WebUtils do
 
   describe '#nl2br' do
     it 'Puts unclosed tags by default' do
-      assert_equal '<br>Hello<br>world<br>', utils.nl2br("\nHello\nworld\n")
+      assert_equal '<br>Hello<br>world<br>', utils.nl2br("\nHello\r\nworld\n")
     end
     describe 'with 2nd argument' do
       it 'Replaces the tag' do
-        assert_equal '<br/>Hello<br/>world<br/>', utils.nl2br("\nHello\nworld\n",'<br/>')
+        assert_equal '<br/>Hello<br/>world<br/>', utils.nl2br("\nHello\r\nworld\n",'<br/>')
       end
     end
   end
