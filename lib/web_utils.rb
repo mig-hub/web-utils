@@ -117,6 +117,7 @@ module WebUtils
       .tr(ACCENTS, WITHOUT_ACCENTS)
       .tr('.,;:?!/\'"()[]{}<>','-')
       .gsub(/&/, 'and')
+      .gsub(/%/, '-percent')
       .gsub(/[[:space:]\-–—]+/,'-')
       .gsub(/(^-|-$)/,'')
     s = s.downcase if force_lower

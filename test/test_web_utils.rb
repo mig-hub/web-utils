@@ -234,11 +234,11 @@ describe WebUtils do
 
     let(:arg) { "Así es la vida – by Daniel Bär & Mickaël ? (100%)" }
     it 'Builds a string made of lowercase URL-friendly chars' do
-      assert_equal 'asi-es-la-vida-by-daniel-bar-and-mickael-100%25', utils.slugify(arg)
+      assert_equal 'asi-es-la-vida-by-daniel-bar-and-mickael-100-percent', utils.slugify(arg)
     end
     describe 'when second argument is false' do
       it 'Does not force to lowercase' do
-        assert_equal 'Asi-es-la-vida-by-Daniel-Bar-and-Mickael-100%25', utils.slugify(arg,false)
+        assert_equal 'Asi-es-la-vida-by-Daniel-Bar-and-Mickael-100-percent', utils.slugify(arg,false)
       end
     end
     describe 'when argument is nil' do
