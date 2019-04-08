@@ -5,7 +5,7 @@ require 'uri'
 
 module WebUtils
 
-  VERSION = '0.1.2'
+  VERSION = '0.1.3'
 
   # Most methods are supposed to be as simple as possible
   # and just cover most cases.
@@ -115,10 +115,9 @@ module WebUtils
   def slugify s, force_lower=true
     s = s.to_s
       .tr(ACCENTS, WITHOUT_ACCENTS)
-      .tr('.,;:?!/\'"()[]{}<>','-')
       .gsub(/&/, 'and')
-      .gsub(/%/, '-percent')
-      .gsub(/[[:space:]\-–—]+/,'-')
+      .gsub(/%/, ' percent')
+      .gsub(/(\-|[^0-9a-zA-Z])+/,'-')
       .gsub(/(^-|-$)/,'')
     s = s.downcase if force_lower
     escape(s)
