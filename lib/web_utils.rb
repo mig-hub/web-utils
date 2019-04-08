@@ -117,7 +117,7 @@ module WebUtils
       .tr(ACCENTS, WITHOUT_ACCENTS)
       .tr('.,;:?!/\'"()[]{}<>','-')
       .gsub(/&/, 'and')
-      .gsub(/[[:space:]\-]+/,'-')
+      .gsub(/[[:space:]\-–—]+/,'-')
       .gsub(/(^-|-$)/,'')
     s = s.downcase if force_lower
     escape(s)

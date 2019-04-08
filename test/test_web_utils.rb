@@ -232,7 +232,7 @@ describe WebUtils do
     # For making slug for a document
     # Possibly used instead of the id
 
-    let(:arg) { "Así es la vida by Daniel Bär & Mickaël ? (100%)" }
+    let(:arg) { "Así es la vida – by Daniel Bär & Mickaël ? (100%)" }
     it 'Builds a string made of lowercase URL-friendly chars' do
       assert_equal 'asi-es-la-vida-by-daniel-bar-and-mickael-100%25', utils.slugify(arg)
     end
