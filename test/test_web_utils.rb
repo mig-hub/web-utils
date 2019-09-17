@@ -350,10 +350,16 @@ describe WebUtils do
 
   describe '#generate_random_id' do
     it 'Has the correct format' do
-      assert_match /[a-zA-Z0-9]{16}/, utils.generate_random_id
+      out, err = capture_io do
+        assert_match /[a-zA-Z0-9]{16}/, utils.generate_random_id
+      end
+      assert_match "WebUtils::generate_random_id is deprecated", err
     end
     it 'Can have a specific length' do
-      assert_match /[a-zA-Z0-9]{32}/, utils.generate_random_id(32)
+      out, err = capture_io do
+        assert_match /[a-zA-Z0-9]{32}/, utils.generate_random_id(32)
+      end
+      assert_match "WebUtils::generate_random_id is deprecated", err
     end
   end
 
