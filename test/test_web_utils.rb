@@ -324,7 +324,12 @@ describe WebUtils do
           ['42hello', '42hello'],
           ['5.0hello', '5.0hello']
         ].each do |(arg,result)|
-          assert_equal result, utils.automatic_typecast(arg)
+          # This `if` statement is now needed to avoid a depracation warning.
+          if result.nil?
+            assert_nil utils.automatic_typecast(arg)
+          else
+            assert_equal result, utils.automatic_typecast(arg)
+          end
         end
       end
       it 'Can change what is typecasted' do
