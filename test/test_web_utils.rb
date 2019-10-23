@@ -26,6 +26,9 @@ describe WebUtils do
     describe 'with nil' do
       it('is true') { assert utils.blank?(nil) }
     end
+    describe 'with false' do
+      it('is true') { assert utils.blank?(false) }
+    end
     describe 'with non-blank strings' do
       it 'is false' do
         ['a','abc', '  abc  '].each do |s|

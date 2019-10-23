@@ -15,7 +15,8 @@ module WebUtils
   extend Rack::Utils
 
   def blank? s
-    s.to_s.strip==''
+    return true if s==false
+    s.to_s.strip.empty?
   end
   module_function :blank?
 
