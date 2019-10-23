@@ -27,6 +27,7 @@ module WebUtils
   module_function :blank?
 
   def pluralize s
+    s = s.dup
     s<<'e' if s[-1,1]=='x'
     s<<'s'
     s.sub(/([b-df-hj-np-tv-z])ys$/,'\1ies')
@@ -42,7 +43,7 @@ module WebUtils
     when /s$/
       s[0..-2]
     else
-      s
+      s.dup
     end
   end
   module_function :singularize

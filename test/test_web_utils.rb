@@ -57,6 +57,11 @@ describe WebUtils do
         assert_equal 'copies', utils.pluralize('copy')
       end
     end
+    it "Does not mutate input" do
+      input = 'bag'
+      utils.pluralize(input)
+      assert_equal 'bag', input
+    end
 
   end
 
@@ -73,6 +78,14 @@ describe WebUtils do
     describe "The word ends with 'ies'" do
       it "Replaces 'ie' with 'y'" do
         assert_equal 'copy', utils.singularize('copies')
+      end
+    end
+    describe "The word does not seem plural" do
+      it "Returns the same" do
+        input = 'bag'
+        output = utils.singularize(input)
+        assert_equal 'bag', output
+        refute_same input, output
       end
     end
 
