@@ -9,7 +9,7 @@ module WebUtils
 
   # Most methods are supposed to be as simple as possible
   # and just cover most cases.
-  # I would rather override specific cases rather than making
+  # I would rather override specific cases than making
   # complicated methods.
 
   extend Rack::Utils
