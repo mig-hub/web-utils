@@ -5,7 +5,7 @@ require 'uri'
 
 module WebUtils
 
-  VERSION = '0.1.4'
+  VERSION = '0.1.4'.freeze
 
   # Most methods are supposed to be as simple as possible
   # and just cover most cases.
@@ -108,8 +108,8 @@ module WebUtils
   end
   module_function :ensure_key
 
-  ACCENTS = "ÀÁÂÃÄÅàáâãäåĀāĂăĄąÇçĆćĈĉĊċČčÐðĎďĐđÈÉÊËèéêëĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħÌÍÎÏìíîïĨĩĪīĬĭĮįİıĴĵĶķĸĹĺĻļĽľĿŀŁłÑñŃńŅņŇňŉŊŋÒÓÔÕÖØòóôõöøŌōŎŏŐőŔŕŖŗŘřŚśŜŝŞşŠšſŢţŤťŦŧÙÚÛÜùúûüŨũŪūŬŭŮůŰűŲųŴŵÝýÿŶŷŸŹźŻżŽž"
-  WITHOUT_ACCENTS = "AAAAAAaaaaaaAaAaAaCcCcCcCcCcDdDdDdEEEEeeeeEeEeEeEeEeGgGgGgGgHhHhIIIIiiiiIiIiIiIiIiJjKkkLlLlLlLlLlNnNnNnNnnNnOOOOOOooooooOoOoOoRrRrRrSsSsSsSssTtTtTtUUUUuuuuUuUuUuUuUuUuWwYyyYyYZzZzZz"
+  ACCENTS = "ÀÁÂÃÄÅàáâãäåĀāĂăĄąÇçĆćĈĉĊċČčÐðĎďĐđÈÉÊËèéêëĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħÌÍÎÏìíîïĨĩĪīĬĭĮįİıĴĵĶķĸĹĺĻļĽľĿŀŁłÑñŃńŅņŇňŉŊŋÒÓÔÕÖØòóôõöøŌōŎŏŐőŔŕŖŗŘřŚśŜŝŞşŠšſŢţŤťŦŧÙÚÛÜùúûüŨũŪūŬŭŮůŰűŲųŴŵÝýÿŶŷŸŹźŻżŽž".freeze
+  WITHOUT_ACCENTS = "AAAAAAaaaaaaAaAaAaCcCcCcCcCcDdDdDdEEEEeeeeEeEeEeEeEeGgGgGgGgHhHhIIIIiiiiIiIiIiIiIiJjKkkLlLlLlLlLlNnNnNnNnnNnOOOOOOooooooOoOoOoRrRrRrSsSsSsSssTtTtTtUUUUuuuuUuUuUuUuUuUuWwYyyYyYZzZzZz".freeze
   def slugify s, force_lower=true
     s = s.to_s
       .tr(ACCENTS, WITHOUT_ACCENTS)
@@ -140,7 +140,7 @@ module WebUtils
   end
   module_function :each_stub
 
-  TYPECASTABLE = [:bool, :boolean, :nil, :int, :integer, :float]
+  TYPECASTABLE = [:bool, :boolean, :nil, :int, :integer, :float].freeze
   def automatic_typecast str, casted=TYPECASTABLE 
     return str unless str.is_a?(String)
     casted = casted.map do |sym|
@@ -198,8 +198,8 @@ module WebUtils
   end
   module_function :external_link?
 
-  EMAIL_REGEX = /([^\s]+@[^\s]*[a-zA-Z])/
-  LINK_REGEX = /\b((https?:\/\/|ftps?:\/\/|www\.)([A-Za-z0-9\-_=%&@\?\.\/]+))\b/
+  EMAIL_REGEX = /([^\s]+@[^\s]*[a-zA-Z])/.freeze
+  LINK_REGEX = /\b((https?:\/\/|ftps?:\/\/|www\.)([A-Za-z0-9\-_=%&@\?\.\/]+))\b/.freeze
   def automatic_html s, br='<br>'
     replaced = s.to_s.
     gsub(LINK_REGEX) do |str|
@@ -213,7 +213,7 @@ module WebUtils
   end
   module_function :automatic_html
 
-  TAG_REGEX = /<[^>]*>/
+  TAG_REGEX = /<[^>]*>/.freeze
   def truncate s,c=320,ellipsis='...'
     s.to_s
       .gsub(TAG_REGEX, '')
@@ -273,7 +273,7 @@ module WebUtils
   end
   module_function :initial_request?
 
-  BOT_REGEX = /bot|crawl|slurp|spider/i
+  BOT_REGEX = /bot|crawl|slurp|spider/i.freeze
   def being_crawled? request
     request.user_agent =~ BOT_REGEX
   end
