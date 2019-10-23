@@ -41,13 +41,17 @@ module WebUtils
   end
   module_function :pluralize
 
+  XES_STRING = 'xes'.freeze
+  IES_STRING = 'ies'.freeze
+  Y_STRING = 'y'.freeze
+  SINGULAR_RE = /ies\z/.freeze
+
   def singularize s
-    case s
-    when /xes$/
+    if s.end_with? XES_STRING
       s[0..-3]
-    when /ies$/
-      s.sub(/ies$/, 'y')
-    when /s$/
+    elsif s.end_with? IES_STRING
+      s.sub(SINGULAR_RE, Y_STRING)
+    elsif s.end_with? S_STRING
       s[0..-2]
     else
       s.dup
