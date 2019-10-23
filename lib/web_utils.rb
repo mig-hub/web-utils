@@ -104,15 +104,12 @@ module WebUtils
   module_function :deep_copy
 
   def ensure_key! h, k, v
-    h[k] = v unless h.key?(k)
-    h[k]
+    h.fetch(k) {|k| h.store(k, v) }
   end
   module_function :ensure_key!
 
   def ensure_key h, k, v
-    new_h = h.dup
-    self.ensure_key! new_h, k, v
-    new_h
+    {k=>v}.merge h
   end
   module_function :ensure_key
 
