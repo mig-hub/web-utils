@@ -15,6 +15,7 @@ module WebUtils
   extend Rack::Utils
 
   BLANK_RE = /\A[[:space:]]*\z/.freeze
+
   def blank? s
     return true if s.nil?
     # Not much difference with strip on benchmarks
@@ -26,11 +27,17 @@ module WebUtils
   end
   module_function :blank?
 
+  E_STRING = 'e'.freeze
+  X_STRING = 'x'.freeze
+  S_STRING = 's'.freeze
+  PLURAL_RE = /([b-df-hj-np-tv-z])ys\z/.freeze
+  PLURAL_SUB = '\1ies'.freeze
+
   def pluralize s
     s = s.dup
-    s<<'e' if s[-1,1]=='x'
-    s<<'s'
-    s.sub(/([b-df-hj-np-tv-z])ys$/,'\1ies')
+    s<<E_STRING if s[-1,1]==X_STRING
+    s<<S_STRING
+    s.sub PLURAL_RE, PLURAL_SUB
   end
   module_function :pluralize
 
