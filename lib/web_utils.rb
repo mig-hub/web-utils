@@ -227,7 +227,7 @@ module WebUtils
     atoms = query.split(/[^a-zA-Z0-9\&]+/)
     atom_patterns = atoms.map{|a| "(?=.*\\b#{a})" }
     sep = exhaustive ? '' : '|'
-    regex = /#{atom_patterns.join(sep)}/i
+    /#{atom_patterns.join(sep)}/i
   end
   module_function :regex_for_query
 
@@ -269,8 +269,9 @@ module WebUtils
   module_function :filename_variation
 
   def initial_request? request
-    return true unless request.referer=~URI.regexp
     URI.parse(request.referer).host!=request.host
+  rescue URI::InvalidURIError
+    return true
   end
   module_function :initial_request?
 

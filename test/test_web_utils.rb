@@ -353,14 +353,14 @@ describe WebUtils do
 
   describe '#generate_random_id' do
     it 'Has the correct format' do
-      out, err = capture_io do
-        assert_match /[a-zA-Z0-9]{16}/, utils.generate_random_id
+      _, err = capture_io do
+        assert_match(/[a-zA-Z0-9]{16}/, utils.generate_random_id )
       end
       assert_match "WebUtils::generate_random_id is deprecated", err
     end
     it 'Can have a specific length' do
-      out, err = capture_io do
-        assert_match /[a-zA-Z0-9]{32}/, utils.generate_random_id(32)
+      _, err = capture_io do
+        assert_match(/[a-zA-Z0-9]{32}/, utils.generate_random_id(32) )
       end
       assert_match "WebUtils::generate_random_id is deprecated", err
     end
@@ -511,13 +511,13 @@ describe WebUtils do
       assert_equal 2800, utils.parse_price('28')
     end
     it 'Ignores visual help but works with negative prices' do
-      assert_equal -1234567890, utils.parse_price('   £-12,345,678.90   ')
+      assert_equal(-1234567890, utils.parse_price('   £-12,345,678.90   ') )
     end
     it 'Parses comma-based prices - french/german style' do
       assert_equal 2390, utils.parse_price('23,90')
       assert_equal 2390, utils.parse_price('23,9')
       assert_equal 2000000, utils.parse_price('20.000')
-      assert_equal -1234567890, utils.parse_price('   £-12.345.678,90   ')
+      assert_equal(-1234567890, utils.parse_price('   £-12.345.678,90   ') )
     end
     it 'Raises when argument is not string' do
       assert_raises(TypeError) do
