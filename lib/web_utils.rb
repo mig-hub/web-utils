@@ -117,13 +117,20 @@ module WebUtils
   WITHOUT_ACCENTS = "AAAAAAaaaaaaAaAaAaCcCcCcCcCcDdDdDdEEEEeeeeEeEeEeEeEeGgGgGgGgHhHhIIIIiiiiIiIiIiIiIiJjKkkLlLlLlLlLlNnNnNnNnnNnOOOOOOooooooOoOoOoRrRrRrSsSsSsSssTtTtTtUUUUuuuuUuUuUuUuUuUuWwYyyYyYZzZzZz".freeze
   DASHIFY_RE = /(\-|[^0-9a-zA-Z])+/.freeze
   EDGE_DASH_RE = /(\A-|-\z)/.freeze
+  EMPTY_STRING = ''.freeze
+  DASH = '-'.freeze
+  AND_STRING = 'and'.freeze
+  AMPERSAND_STRING = '&'.freeze
+  PERCENT_SIGN_STRING = '%'.freeze
+  SPACE_PERCENT_STRING = ' percent'.freeze
+
   def slugify s, force_lower=true
     s = s.to_s
       .tr(ACCENTS, WITHOUT_ACCENTS)
-      .gsub('&', 'and')
-      .gsub('%', ' percent')
-      .gsub(DASHIFY_RE,'-')
-      .gsub(EDGE_DASH_RE,'')
+      .gsub(AMPERSAND_STRING, AND_STRING)
+      .gsub(PERCENT_SIGN_STRING, SPACE_PERCENT_STRING)
+      .gsub(DASHIFY_RE, DASH)
+      .gsub(EDGE_DASH_RE, EMPTY_STRING)
     s = s.downcase if force_lower
     escape(s)
   end
