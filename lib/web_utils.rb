@@ -14,9 +14,15 @@ module WebUtils
 
   extend Rack::Utils
 
+  BLANK_RE = /\A[[:space:]]*\z/.freeze
   def blank? s
+    return true if s.nil?
+    # Not much difference with strip on benchmarks
+    # return (s.empty? or BLANK_RE.match?(s)) if s.is_a?(String)
+    return (s.strip.empty?) if s.is_a?(String)
+    return s.empty? if s.respond_to?(:empty?)
     return true if s==false
-    s.to_s.strip.empty?
+    false
   end
   module_function :blank?
 
